@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"../command"
+	"github.com/eehut/hello-go/command"
 )
 
 // CommandString is for string test

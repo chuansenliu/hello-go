@@ -3,7 +3,7 @@
 build: hello
 
 hello:
-	go build -o $@ ./cmd
+	GO111MODULE=off go  build -o $@ ./cmd
 
 clean:
 	rm -f hello

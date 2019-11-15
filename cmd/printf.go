@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"../command"
+	"github.com/eehut/hello-go/command"
 )
 
 // CommandPrintf is for printf test

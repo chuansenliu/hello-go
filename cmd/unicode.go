@@ -5,7 +5,7 @@ import (
 	"strings"
 	"unicode"
 
-	"../command"
+	"github.com/eehut/hello-go/command"
 )
 
 // CommandUnicode is for unicode test

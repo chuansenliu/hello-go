@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"../command"
+	"github.com/eehut/hello-go/command"
 )
 
 func fileOpen(path string) (*os.File, error) {

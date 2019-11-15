@@ -7,7 +7,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"../command"
+	"github.com/eehut/hello-go/command"
 )
 
 /* for console message */
