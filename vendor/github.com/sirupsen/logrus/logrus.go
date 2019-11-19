@@ -55,7 +55,7 @@ func (level *Level) UnmarshalText(text []byte) error {
 
 	return nil
 }
-ddd
+
 func (level Level) MarshalText() ([]byte, error) {
 	switch level {
 	case TraceLevel:
