@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 
@@ -19,6 +20,28 @@ func (cmd CommandPrintf) GetDesc() *command.CommandDesc {
 
 // Execute do the command function
 func (cmd CommandPrintf) Execute(argv []string) int {
+
+	for i, v := range argv {
+		fmt.Printf("%d: %s\n", i, v)
+	}
+
+	flags := flag.NewFlagSet("test", flag.ContinueOnError)
+
+	var argB bool
+	var argI int
+	var argS string
+
+	flags.BoolVar(&argB, "help", false, "print this message")
+	flags.IntVar(&argI, "period", 0, "set timer `period`")
+	flags.StringVar(&argS, "url", "www.baidu.com", "set server `url`")
+
+	flags.Parse(argv)
+
+	flags.Usage()
+
+	fmt.Printf("argB = %v\n", argB)
+	fmt.Printf("argI = %v\n", argI)
+	fmt.Printf("argS = %v\n", argS)
 
 	type point struct {
 		x, y int
