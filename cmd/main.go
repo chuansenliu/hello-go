@@ -48,12 +48,6 @@ func main() {
 
 	print("This built-in function: print\n")
 
-	/* init commands */
-	//InitCommand()
-
-	//AddCommand("string", cmdString)
-	//AddCommand("printf", cmdPrintf)
-
 	/* init console */
 	consoleInit()
 

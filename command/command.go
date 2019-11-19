@@ -8,35 +8,32 @@ import (
 // Prompt is command prompt string after 'enter'
 const Prompt string = "> "
 
-// CommandDesc is a struct for command description
-type CommandDesc struct {
-	Info string
-	Help string
-}
-
-// Command is an interface
-type Command interface {
-	Execute([]string) int
-	GetDesc() *CommandDesc
+// Command struct
+type Command struct {
+	Execute func(argv []string) int
+	Name    string
+	Desc    string
+	Usage   string
 }
 
 // AllCommands saves all commands in map
-var AllCommands = map[string]Command{}
+var AllCommands = map[string]*Command{}
+
+// NewCommand returns a new, empty command with the specified infos
+func AddCommand(name, desc, usage string, execute func(argv []string) int) *Command {
+	f := &Command{
+		Name:    name,
+		Desc:    desc,
+		Usage:   usage,
+		Execute: execute}
+
+	AllCommands[name] = f
+	return f
+}
 
 /* help */
-
-// CommandHelp is internal command 'help'
-type CommandHelp struct {
-	Desc CommandDesc
-}
-
-// GetDesc return the description of this command
-func (cmd CommandHelp) GetDesc() *CommandDesc {
-	return &cmd.Desc
-}
-
-// Execute is called when command matched
-func (cmd CommandHelp) Execute(argv []string) int {
+// doHelp is called when command matched
+func doHelp(argv []string) int {
 
 	num := len(argv)
 	var arg string
@@ -50,8 +47,7 @@ func (cmd CommandHelp) Execute(argv []string) int {
 	c, exist := AllCommands[arg]
 
 	if exist {
-		d := c.GetDesc()
-		fmt.Printf("%s\n", d.Help)
+		fmt.Printf("%s\n", c.Usage)
 	} else {
 		fmt.Printf("*** Command not found: %s\n", arg)
 	}
@@ -59,24 +55,13 @@ func (cmd CommandHelp) Execute(argv []string) int {
 	return 0
 }
 
-/* list command */
-
-// CommandList is internal command 'list'
-type CommandList struct {
-	Desc CommandDesc
-}
-
-// GetDesc return the description of this command
-func (cmd CommandList) GetDesc() *CommandDesc {
-	return &cmd.Desc
-}
+/* list */
 
 // Execute is called when command matched
-func (cmd CommandList) Execute(argv []string) int {
+func doList(argv []string) int {
 
 	for k, v := range AllCommands {
-		desc := v.GetDesc()
-		fmt.Printf(" %-16s : %s\n", k, desc.Info)
+		fmt.Printf(" %-16s : %s\n", k, v.Desc)
 	}
 
 	return 0
@@ -128,13 +113,8 @@ func DoCommand(str string) {
 	}
 }
 
-// AddCommand adds command to AllCommands
-func AddCommand(name string, cmd Command) {
-	AllCommands[name] = cmd
-}
-
 func init() {
 
-	AddCommand("list", CommandList{Desc: CommandDesc{"List built-in commands", "Usage:\n list"}})
-	AddCommand("help", CommandHelp{Desc: CommandDesc{"Show command help", "Usage:\n help CMD"}})
+	AddCommand("help", "Show command help", "Usage:\n help CMD", doHelp)
+	AddCommand("list", "List built-in commands", "Usage:\n list", doList)
 }

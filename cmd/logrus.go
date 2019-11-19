@@ -7,18 +7,8 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// CommandLogrus is for log test
-type CommandLogrus struct {
-	Desc command.CommandDesc
-}
-
-// GetDesc return the description
-func (cmd CommandLogrus) GetDesc() *command.CommandDesc {
-	return &cmd.Desc
-}
-
-// Execute is command function
-func (cmd CommandLogrus) Execute(argv []string) int {
+// doLogrus is command function
+func doLogrus(argv []string) int {
 
 	//logrus.SetFormatter(&logrus.JSONFormatter{})
 	logrus.SetOutput(os.Stdout)
@@ -45,5 +35,5 @@ func (cmd CommandLogrus) Execute(argv []string) int {
 }
 
 func init() {
-	command.AddCommand("logrus", CommandLogrus{Desc: command.CommandDesc{Info: "logrus package test", Help: "Usage:\n logrus"}})
+	command.AddCommand("logrus", "logrus package test", "Usage:\n logrus", doLogrus)
 }

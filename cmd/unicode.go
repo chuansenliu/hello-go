@@ -8,18 +8,8 @@ import (
 	"github.com/eehut/hello-go/command"
 )
 
-// CommandUnicode is for unicode test
-type CommandUnicode struct {
-	Desc command.CommandDesc
-}
-
-// GetDesc return the description
-func (cmd CommandUnicode) GetDesc() *command.CommandDesc {
-	return &cmd.Desc
-}
-
-// Execute is command function
-func (cmd CommandUnicode) Execute(argv []string) int {
+// doUnicode is command function
+func doUnicode(argv []string) int {
 
 	s := "Hello A B C!"
 
@@ -55,5 +45,5 @@ func (cmd CommandUnicode) Execute(argv []string) int {
 }
 
 func init() {
-	command.AddCommand("unicode", CommandUnicode{Desc: command.CommandDesc{Info: "unicode package test", Help: "Usage:\n unicode"}})
+	command.AddCommand("unicode", "unicode package test", "Usage:\n unicode", doUnicode)
 }

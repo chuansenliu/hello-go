@@ -8,18 +8,8 @@ import (
 	"github.com/eehut/hello-go/command"
 )
 
-// CommandPrintf is for printf test
-type CommandPrintf struct {
-	Desc command.CommandDesc
-}
-
-// GetDesc returns command's description
-func (cmd CommandPrintf) GetDesc() *command.CommandDesc {
-	return &cmd.Desc
-}
-
-// Execute do the command function
-func (cmd CommandPrintf) Execute(argv []string) int {
+// doPrintf do the command function
+func doPrintf(argv []string) int {
 
 	for i, v := range argv {
 		fmt.Printf("%d: %s\n", i, v)
@@ -114,5 +104,5 @@ func (cmd CommandPrintf) Execute(argv []string) int {
 }
 
 func init() {
-	command.AddCommand("printf", CommandPrintf{Desc: command.CommandDesc{Info: "For fmt.Printf test", Help: "Usage:\n printf"}})
+	command.AddCommand("printf", "For fmt.Printf test", "Usage:\n printf", doPrintf)
 }

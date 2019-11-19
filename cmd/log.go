@@ -18,18 +18,8 @@ func fileOpen(path string) (*os.File, error) {
 	return os.OpenFile(path, os.O_APPEND, 0666)
 }
 
-// CommandLog is for log test
-type CommandLog struct {
-	Desc command.CommandDesc
-}
-
-// GetDesc return the description
-func (cmd CommandLog) GetDesc() *command.CommandDesc {
-	return &cmd.Desc
-}
-
-// Execute is command function
-func (cmd CommandLog) Execute(argv []string) int {
+// doLog is command function
+func doLog(argv []string) int {
 
 	var logFile *os.File
 	var err error
@@ -68,5 +58,5 @@ func (cmd CommandLog) Execute(argv []string) int {
 }
 
 func init() {
-	command.AddCommand("log", CommandLog{Desc: command.CommandDesc{Info: "log package test", Help: "Usage:\n log [-f|-p]"}})
+	command.AddCommand("log", "log package test", "Usage:\n log [-f|-p]", doLog)
 }

@@ -23,18 +23,8 @@ func queryDB(clnt client.Client, cmd string, db string) (res []client.Result, er
 	return res, nil
 }
 
-// CommandInflux is for influxdb test
-type CommandInflux struct {
-	Desc command.CommandDesc
-}
-
-// GetDesc return the description
-func (cmd CommandInflux) GetDesc() *command.CommandDesc {
-	return &cmd.Desc
-}
-
-// Execute is command function
-func (cmd CommandInflux) Execute(argv []string) int {
+// doInflux is command function
+func doInflux(argv []string) int {
 
 	c, err := client.NewHTTPClient(client.HTTPConfig{
 		Addr: "http://10.72.7.24:8086",
@@ -101,5 +91,5 @@ func (cmd CommandInflux) Execute(argv []string) int {
 }
 
 func init() {
-	command.AddCommand("influx", CommandInflux{Desc: command.CommandDesc{Info: "influx package test", Help: "Usage:\n influx"}})
+	command.AddCommand("influx", "influx package test", "Usage:\n influx", doInflux)
 }

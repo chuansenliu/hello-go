@@ -9,18 +9,8 @@ import (
 	"github.com/eehut/hello-go/command"
 )
 
-// CommandString is for string test
-type CommandString struct {
-	Desc command.CommandDesc
-}
-
-// GetDesc return the description
-func (cmd CommandString) GetDesc() *command.CommandDesc {
-	return &cmd.Desc
-}
-
-// Execute is command function
-func (cmd CommandString) Execute(argv []string) int {
+// doString is command function
+func doString(argv []string) int {
 
 	b := "abc efg hijk lmn\n\t"
 
@@ -62,5 +52,5 @@ func (cmd CommandString) Execute(argv []string) int {
 }
 
 func init() {
-	command.AddCommand("string", CommandString{Desc: command.CommandDesc{Info: "Strings test", Help: "Usage:\n string"}})
+	command.AddCommand("string", "Strings test", "Usage:\n string", doString)
 }
