@@ -150,8 +150,15 @@ func doTime(argv []string) int {
 			goto safeExit
 		}
 	}
-
 safeExit:
+
+	/*
+		ntk := time.Tick(5 * time.Second)
+
+		for v := range ntk {
+			fmt.Println(v)
+		}
+	*/
 	return 0
 }
 
